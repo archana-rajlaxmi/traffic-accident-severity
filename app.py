@@ -15,7 +15,7 @@ import xgboost as xgb
 
 # Load processed feature template
 reference_df = pd.read_csv('processed_input.csv')  # This is the file you preprocessed fully
-feature_columns = reference_df.drop(columns=['Severity']).columns  # exclude label
+feature_columns = reference_df.drop(columns=['Accident_severity']).columns  # exclude label
 
 # Load model
 model = xgb.Booster()
