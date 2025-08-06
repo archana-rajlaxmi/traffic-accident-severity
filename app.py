@@ -88,9 +88,6 @@ if st.button("Predict severity"):
     st.subheader("Prediction Result:")
     st.success(severity_map[predicted_label])
 
-from google.colab import ai
-ai.list_models()
-
 """The model names give you a hint about their capabilities and intended use:
 
 Pro: These are the most capable models, ideal for complex reasoning, creative tasks, and detailed analysis.
