@@ -7,9 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1fxJPGC5AiUH2Qfr2P9wNGZe3TYafjHV1
 """
 
-from google.colab import files
-uploaded = files.upload()
-
 import pandas as pd
 df_og = pd.read_csv('Road.csv')
 df = df_og[['Time', 'Day_of_week', 'Age_band_of_driver', 'Driving_experience',
