@@ -11,7 +11,7 @@ import pandas as pd
 df_og = pd.read_csv('Road.csv')
 df = df_og[['Time', 'Day_of_week', 'Age_band_of_driver', 'Driving_experience',
        'Type_of_vehicle', 'Road_surface_conditions', 'Light_conditions',
-       'Weather_conditions', 'Cause_of_accident']]
+       'Weather_conditions', 'Cause_of_accident', 'Accident_severity']]
 df_og.head()
 
 df_og.groupby('Accident_severity')['Number_of_casualties'].describe()
@@ -185,8 +185,8 @@ from sklearn.naive_bayes import GaussianNB
 from xgboost import XGBClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 
-X = df
-y = df_og['Accident_severity']
+X = df.drop(columns=['Accident_severity'])
+y = df['Accident_severity']
 
 smote = SMOTE(random_state=42)
 X_resampled, y_resampled = smote.fit_resample(X, y)
