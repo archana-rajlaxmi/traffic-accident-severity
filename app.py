@@ -10,7 +10,6 @@ Original file is located at
 from google.colab import files
 uploaded = files.upload()
 
-!pip install xgboost joblib pandas numpy
 import streamlit as st
 import pandas as pd
 import numpy as np
