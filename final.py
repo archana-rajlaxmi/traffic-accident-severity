@@ -199,6 +199,8 @@ lr = LogisticRegression(max_iter=1000)
 lr.fit(X_train, y_train)
 y_pred_lr = lr.predict(X_test)
 print("Logistic Regression:\n", classification_report(y_test, y_pred_lr))
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+ConfusionMatrixDisplay.from_predictions(y_test, y_pred_lr)
 
 nb = GaussianNB()
 nb.fit(X_train, y_train)
@@ -219,9 +221,14 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 ConfusionMatrixDisplay.from_predictions(y_test, y_pred_xgb)
 
 import joblib
-joblib.dump(xgb, 'model.pkl')
 joblib.dump(ct, 'preprocessor.pkl')
+xgb.get_booster().save_model("xgb_model.json")
 
 from google.colab import files
-files.download('model.pkl')
+files.download('xgb_model.json')
 files.download('preprocessor.pkl')
+
+import sklearn, joblib, sys
+print("sklearn:", sklearn.__version__)
+print("joblib:", joblib.__version__)
+print("python:", sys.version)
