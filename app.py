@@ -72,7 +72,8 @@ input_df['Dayofweek_cos'] = np.cos(2 * np.pi * input_df['Day_of_weekk'] / 7)
 X_transformed = preprocessor.transform(input_df)
 
 if st.button("Predict severity"):
-    prediction = model.predict(X_transformed)
+    dtest = xgb.DMatrix(X_transformed)
+    prediction = model.predict(dtest)
     severity_map = {0: 'Slight Injury', 1: 'Serious Injury', 2: 'Fatal Injury'}
     st.subheader("Prediction Result:")
     st.success(severity_map[int(prediction[0])])
