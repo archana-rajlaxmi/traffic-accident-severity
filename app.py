@@ -87,12 +87,3 @@ if st.button("Predict severity"):
 
     st.subheader("Prediction Result:")
     st.success(severity_map[predicted_label])
-
-"""The model names give you a hint about their capabilities and intended use:
-
-Pro: These are the most capable models, ideal for complex reasoning, creative tasks, and detailed analysis.
-
-Flash: These models are optimized for high speed and efficiency, making them great for summarization, chat applications, and tasks requiring rapid responses.
-
-Gemma: These are lightweight, open-weight models suitable for a variety of text generation tasks and are great for experimentation.
-"""
