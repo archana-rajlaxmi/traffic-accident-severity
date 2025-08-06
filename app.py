@@ -7,6 +7,10 @@ Original file is located at
     https://colab.research.google.com/drive/1WF2mnfB8XcBja_F9sTMVj7orJ0vsVcxV
 """
 
+from google.colab import files
+uploaded = files.upload()
+
+!pip install xgboost joblib pandas numpy
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -69,11 +73,33 @@ input_df['Day_of_weekk'] = input_df['Day_of_week'].map(day_map)
 input_df['Dayofweek_sin'] = np.sin(2 * np.pi * input_df['Day_of_weekk'] / 7)
 input_df['Dayofweek_cos'] = np.cos(2 * np.pi * input_df['Day_of_weekk'] / 7)
 
-X_transformed = preprocessor.transform(input_df)
+# Transform user inputs
+X_transformed = preprocessor.transform(user_input_df)
 
+# Convert to DMatrix (required for Booster models)
+X_dmatrix = xgb.DMatrix(X_transformed)
+
+st.write("Shape of transformed input:", X_transformed.shape)
+
+# Button and prediction
 if st.button("Predict severity"):
-    dtest = xgb.DMatrix(X_transformed)
-    prediction = model.predict(dtest)
+    prediction = model.predict(X_dmatrix)
+
+    # Convert raw prediction to label
     severity_map = {0: 'Slight Injury', 1: 'Serious Injury', 2: 'Fatal Injury'}
+    predicted_label = int(prediction[0])  # xgboost returns [value], so get the first one
+
     st.subheader("Prediction Result:")
-    st.success(severity_map[int(prediction[0])])
+    st.success(severity_map[predicted_label])
+
+from google.colab import ai
+ai.list_models()
+
+"""The model names give you a hint about their capabilities and intended use:
+
+Pro: These are the most capable models, ideal for complex reasoning, creative tasks, and detailed analysis.
+
+Flash: These models are optimized for high speed and efficiency, making them great for summarization, chat applications, and tasks requiring rapid responses.
+
+Gemma: These are lightweight, open-weight models suitable for a variety of text generation tasks and are great for experimentation.
+"""
