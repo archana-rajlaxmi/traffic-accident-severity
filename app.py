@@ -11,9 +11,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import xgboost as xgb
 
-model = joblib.load("model.pkl")
-preprocessor = joblib.load("preprocessor.pkl")
+# Load preprocessor
+preprocessor = joblib.load('preprocessor.pkl')
+
+# Load model
+model = xgb.Booster()
+model.load_model('xgb_model.json')
 
 st.title("Road Accident Severity Predictor")
 st.markdown("Predicts the severity of a road accident based on given input.")
