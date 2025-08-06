@@ -63,6 +63,21 @@ input_df['Dayofweek_cos'] = np.cos(2 * np.pi * input_df['Day_of_weekk'] / 7)
 # Transform using preprocessor
 X_transformed = preprocessor.transform(input_df)
 
+# Ensure DataFrame with expected columns
+X_transformed_df = pd.DataFrame(X_transformed, columns=preprocessor.get_feature_names_out())
+
+# Get full column list your model expects (from training)
+expected_columns = [...]  # Your full list of column names, as from final.py
+
+# Add missing columns with 0
+for col in expected_columns:
+    if col not in X_transformed_df.columns:
+        X_transformed_df[col] = 0
+
+# Reorder to match model's expected order
+X_transformed_df = X_transformed_df[expected_columns]
+
+
 # Optional: Save to CSV (for debugging or verification)
 if st.button("Download Preprocessed CSV"):
     df_preprocessed = pd.DataFrame(X_transformed.toarray() if hasattr(X_transformed, "toarray") else X_transformed)
