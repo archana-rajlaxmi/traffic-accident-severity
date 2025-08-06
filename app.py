@@ -70,7 +70,7 @@ input_df['Dayofweek_sin'] = np.sin(2 * np.pi * input_df['Day_of_weekk'] / 7)
 input_df['Dayofweek_cos'] = np.cos(2 * np.pi * input_df['Day_of_weekk'] / 7)
 
 # Transform user inputs
-X_transformed = preprocessor.transform(user_input_df)
+X_transformed = preprocessor.transform(input_df)
 
 # Convert to DMatrix (required for Booster models)
 X_dmatrix = xgb.DMatrix(X_transformed)
